@@ -1,0 +1,37 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "get_order_status",
+        "description": "订单物流查询接口（postman-echo 模拟返回）",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "https://postman-echo.com"
+        }
+    ],
+    "paths": {
+        " /get": {
+            "get": {
+                "operationId": "get_order_status",
+                "summary": "查询订单物流状态，用户提供订单号时才调用",
+                "parameters": [
+                    {
+                        "name": "order_id",
+                        "in": "query",
+                        "required": true,
+                        "description": "订单号，例：12345",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "回显参数"
+                    }
+                }
+            }
+        }
+    }
+}
