@@ -1,12 +1,14 @@
+<div align="center">
+
 # 🤖 AI 大模型笔记
 
-> AI 大模型系列公众号文章的配套源码与资料仓库 · 持续更新中
+**AI 大模型系列公众号文章的配套源码与资料仓库 · 持续更新中**
 
 ![Topic](https://img.shields.io/badge/topic-AI%20%E5%A4%A7%E6%A8%A1%E5%9E%8B-6fb89c)
-
 ![Series](https://img.shields.io/badge/%E7%B3%BB%E5%88%97-%E6%8F%90%E7%A4%BA%E8%AF%8D%E5%B7%A5%E7%A8%8B-f0a878)
-
 ![Status](https://img.shields.io/badge/%E7%8A%B6%E6%80%81-%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0-3f7d68)
+
+</div>
 
 ---
 
