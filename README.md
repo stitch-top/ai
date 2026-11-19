@@ -16,8 +16,8 @@
 
 ```
 ai/
-└── articles/                  # 文章配套文件（每篇一个文件夹）
-    └── prompt-08-dify/        # 提示词工程 · 工程化篇
+└── articles/                      # 文章配套文件（每篇一个文件夹）
+    └── prompt-08-dify/            # 提示词工程 · 工程化篇
         ├── get_order_api.py       # 本地订单物流 mock 接口（Python）
         ├── openapi_local.json     # Schema · 本地版
         ├── openapi_httpbin.json   # Schema · 线上版（httpbin）
