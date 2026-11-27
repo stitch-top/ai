@@ -17,11 +17,15 @@
 ```
 ai/
 └── articles/                      # 文章配套文件（每篇一个文件夹）
-    └── prompt-08-dify/            # 提示词工程 · 工程化篇
-        ├── get_order_api.py       # 本地订单物流 mock 接口（Python）
-        ├── openapi_local.json     # Schema · 本地版
-        ├── openapi_httpbin.json   # Schema · 线上版（httpbin）
-        └── openapi_postman.json   # Schema · 线上版（postman-echo）
+    ├── prompt-08-dify/            # 提示词工程 · 工程化篇
+    │   ├── get_order_api.py       # 本地订单物流 mock 接口（Python）
+    │   ├── openapi_local.json     # Schema · 本地版
+    │   ├── openapi_httpbin.json   # Schema · 线上版（httpbin）
+    │   └── openapi_postman.json   # Schema · 线上版（postman-echo）
+    └── prompt-09-dify/            # 工程化篇 · 资料库与上线
+        ├── 退货政策.txt            # 知识库演示资料（虚构内容）
+        ├── get_order_api.py       # mock 接口 · 三种失败模拟版（88888 超时 / 99999 缺 eta / 未登记单号空结果）
+        └── check_order.py         # Dify 代码执行节点的体检代码（判定 timeout / empty / ok）
 ```
 
 ---
@@ -31,6 +35,7 @@ ai/
 | 系列    | 文章                               | 配套文件                      |
 | ----- | -------------------------------- | ------------------------- |
 | 提示词工程 | 工程化篇 · 给模型接上工具（Function Calling） | `articles/prompt-08-dify` |
+| 提示词工程 | 工程化篇 · 资料库与上线（知识库 + 版本回滚 + 降级话术） | `articles/prompt-09-dify` |
 | 提示词工程 | 入门篇 / 小练习 / 进阶篇 / 评测集 / 专精篇            | 待更新                       |
 
 ---
@@ -65,6 +70,42 @@ GET http://localhost:18080/order/status?order_id=12345
 
 ---
 
+## 🚀 快速开始（工程化篇 · 资料库与上线）
+
+### 1️⃣ 运行三种失败模拟版 mock 接口
+
+```bash
+# 下载或克隆仓库后，进入文章目录
+cd articles/prompt-09-dify
+
+# 启动 mock 接口（窗口保持开启）
+python get_order_api.py
+```
+
+用不同订单号触发三种失败情况：
+
+| 订单号   | 触发情况 | 预期回复                       |
+| ----- | ---- | -------------------------- |
+| `12345` / `67890` | 正常   | 返回状态与预计送达                  |
+| `88888` | 超时   | 系统暂时查不到，请稍后再试。             |
+| `99999` | 缺 eta | 订单已发货，送达时间以快递信息为准。         |
+| 未登记单号 | 空结果  | 没查到该订单，麻烦核对一下单号。           |
+
+### 2️⃣ 自测体检代码
+
+```bash
+# 代码执行节点的本地自测（6 组用例）
+python check_order.py
+```
+
+> ⚠️ 在 Dify「代码执行」节点中，输入变量 raw 应绑定工具节点的 text 输出（不是用户输入），输出变量 state / status / eta 每个分支都要返回，缺了会报 `Output status is missing`。
+
+### 3️⃣ 退货政策.txt
+
+知识库演示资料，导入 Dify「创建即用型知识库」使用（分段最大长度 500、重叠 50，Embedding 选 `qwen3-embedding:0.6b`），导入后可用「召回测试」验证切段效果，详细步骤见公众号文章。
+
+---
+
 ## 🗂️ 命名规范
 
 - **仓库**：`ai`，AI 大模型相关命名。
@@ -82,8 +123,7 @@ GET http://localhost:18080/order/status?order_id=12345
 - [ √ ] 2026-11-04 提示词工程 · 进阶篇
 - [ √ ] 2026-11-09 进阶篇 · 评测集
 - [ √ ] 2026-11-12 Dify 开源平台
-- [ √ ] 2026-11-18 提示词工程 · 工程化篇
-- [ x ] 工程化篇·资料柜与上线
+- [ √ ] 2026-11-27 工程化篇 · 资料库与上线
 - [ x ] 提示词工程 · 专精篇
 - [ x ] Dify 系列后续文章
 
@@ -93,6 +133,7 @@ GET http://localhost:18080/order/status?order_id=12345
 
 - 本仓库 articles 目录所有文件仅用于公众号「AI大模型」系列文章的教学演示。
 - mock 接口返回的订单数据为虚构示例，仅供学习使用。
+- 退货政策.txt 为虚构的演示资料，内容不构成任何真实店铺的退货政策。
 
 ---
 
